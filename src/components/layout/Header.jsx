@@ -1,5 +1,5 @@
 ﻿import { useAuth } from '../../context/AuthContext';
-import { Bell } from 'lucide-react';
+import NotificationBell from './NotificationBell';
 
 export default function Header() {
     const { profile } = useAuth();
@@ -17,9 +17,7 @@ export default function Header() {
                 </h2>
             </div>
             <div className="flex items-center gap-4">
-                <button className="relative p-2 text-gray-400 hover:text-gray-600 rounded-xl hover:bg-gray-100">
-                    <Bell size={20} />
-                </button>
+                <NotificationBell />
                 <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-medium">
                         {profile?.displayName?.[0]?.toUpperCase() || '?'}

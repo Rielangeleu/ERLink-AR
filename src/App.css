@@ -182,3 +182,77 @@
     border-right-color: var(--border);
   }
 }
+
+/* Dynamic Theme Variables - Applied by SystemConfig */
+:root {
+    --primary-color: #2563EB;
+    --primary-50: #2563EB0D;
+    --primary-100: #2563EB1A;
+    --secondary-color: #7C3AED;
+    --accent-color: #10B981;
+    --sidebar-color: #1F2937;
+    --header-color: #FFFFFF;
+    --button-radius: 0.75rem;
+}
+
+/* Apply theme to all components */
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.hover\:bg-primary-dark:hover {
+    background-color: var(--primary-color);
+    filter: brightness(0.9);
+}
+
+/* Button styles using CSS variable */
+button.primary-btn,
+.btn-primary {
+    background-color: var(--primary-color);
+    border-radius: var(--button-radius);
+}
+
+button.primary-btn:hover,
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    filter: brightness(0.9);
+}
+
+/* Sidebar theme - update your Layout component to use this */
+.sidebar-nav {
+    background-color: var(--sidebar-color);
+}
+
+/* Header theme */
+.app-header {
+    background-color: var(--header-color);
+}
+
+/* Link styles */
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--primary-color);
+    filter: brightness(0.8);
+}
+
+/* Focus rings */
+*:focus {
+    outline-color: var(--primary-color);
+}
+
+/* Selection color */
+::selection {
+    background-color: var(--primary-color);
+    color: white;
+}

@@ -1,5 +1,8 @@
-﻿import { NavLink, useNavigate } from 'react-router-dom';
+﻿import { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { db } from '../../firebase/config';
+import { doc, getDoc } from 'firebase/firestore';
 import {
     LayoutDashboard, Users, GraduationCap,
     ClipboardList, Settings, FileText,
@@ -20,6 +23,59 @@ const navItems = [
 export default function Sidebar() {
     const { profile, logout } = useAuth();
     const navigate = useNavigate();
+    const [portalLogo, setPortalLogo] = useState(null);
+    const [portalName, setPortalName] = useState('ERLink AR');
+    const [sidebarColor, setSidebarColor] = useState('#1F2937');
+    const [primaryColor, setPrimaryColor] = useState('#2563EB');
+
+    // Load system config for logo and colors
+    useEffect(() => {
+        loadSystemConfig();
+        
+        // Listen for theme changes from System Config
+        const handleThemeChange = (event) => {
+            if (event.detail) {
+                if (event.detail.portalLogoUrl) setPortalLogo(event.detail.portalLogoUrl);
+                if (event.detail.portalName) setPortalName(event.detail.portalName);
+                if (event.detail.sidebarColor) setSidebarColor(event.detail.sidebarColor);
+                if (event.detail.primaryColor) setPrimaryColor(event.detail.primaryColor);
+            }
+        };
+        
+        window.addEventListener('themeChanged', handleThemeChange);
+        
+        // Also listen for storage events (in case config saves in another tab)
+        const handleStorageChange = () => {
+            loadSystemConfig();
+        };
+        
+        window.addEventListener('storage', handleStorageChange);
+        
+        return () => {
+            window.removeEventListener('themeChanged', handleThemeChange);
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+
+    async function loadSystemConfig() {
+        try {
+            const configDoc = await getDoc(doc(db, 'system_config', 'app_settings'));
+            if (configDoc.exists()) {
+                const data = configDoc.data();
+                if (data.portalLogoUrl) setPortalLogo(data.portalLogoUrl);
+                if (data.portalName) setPortalName(data.portalName);
+                if (data.sidebarColor) setSidebarColor(data.sidebarColor);
+                if (data.primaryColor) setPrimaryColor(data.primaryColor);
+                
+                // Apply CSS variables to sidebar
+                const root = document.documentElement;
+                root.style.setProperty('--sidebar-color', data.sidebarColor || '#1F2937');
+                root.style.setProperty('--primary-color', data.primaryColor || '#2563EB');
+            }
+        } catch (error) {
+            console.error('Error loading system config:', error);
+        }
+    }
 
     const handleLogout = async () => {
         await logout();
@@ -30,14 +86,27 @@ export default function Sidebar() {
         item.roles.includes(profile?.role));
 
     return (
-        <aside className="w-56 bg-gray-900 flex flex-col h-screen sticky top-0">
-            {/* Logo */}
-            <div className="p-6 border-b border-gray-800">
+        <aside 
+            className="w-56 flex flex-col h-screen sticky top-0 transition-all duration-300"
+            style={{ backgroundColor: sidebarColor }}
+        >
+            {/* Logo Section - Dynamically updates */}
+            <div className="p-6 border-b" style={{ borderColor: `${sidebarColor}80` }}>
                 <div className="flex items-center gap-2 mb-1">
-                    <Activity size={24} className="text-blue-400" />
-                    <span className="text-white font-semibold text-lg">ERLink AR</span>
+                    {portalLogo ? (
+                        <img 
+                            src={portalLogo} 
+                            alt={portalName}
+                            className="w-8 h-8 object-contain rounded-lg"
+                        />
+                    ) : (
+                        <Activity size={24} style={{ color: primaryColor }} />
+                    )}
+                    <span className="font-semibold text-lg" style={{ color: '#FFFFFF' }}>
+                        {portalName}
+                    </span>
                 </div>
-                <p className="text-xs text-gray-400 capitalize">
+                <p className="text-xs capitalize" style={{ color: '#9CA3AF' }}>
                     {profile?.role?.replace('_', ' ')} Portal
                 </p>
             </div>
@@ -49,11 +118,13 @@ export default function Sidebar() {
                         key={to}
                         to={to}
                         className={({ isActive }) =>
-                            `flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-sm font-medium transition-colors ${isActive
-                                ? 'bg-blue-600 text-white'
-                                : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                            `flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-sm font-medium transition-colors ${
+                                isActive
+                                    ? 'bg-blue-600 text-white'
+                                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                             }`
                         }
+                        style={({ isActive }) => isActive ? { backgroundColor: primaryColor } : {}}
                     >
                         <Icon size={18} />
                         {label}
@@ -62,18 +133,27 @@ export default function Sidebar() {
             </nav>
 
             {/* User info + logout */}
-            <div className="p-4 border-t border-gray-800">
+            <div className="p-4 border-t" style={{ borderColor: `${sidebarColor}80` }}>
                 <div className="mb-3">
-                    <p className="text-white text-sm font-medium truncate">
-                        {profile?.displayName}
+                    <p className="text-sm font-medium truncate" style={{ color: '#FFFFFF' }}>
+                        {profile?.displayName || 'User'}
                     </p>
-                    <p className="text-gray-400 text-xs truncate">
-                        {profile?.email}
+                    <p className="text-xs truncate" style={{ color: '#9CA3AF' }}>
+                        {profile?.email || 'loading...'}
                     </p>
                 </div>
                 <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 text-gray-400 hover:text-white text-sm w-full px-2 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                    className="flex items-center gap-2 text-sm w-full px-2 py-2 rounded-lg transition-colors"
+                    style={{ color: '#9CA3AF' }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#374151';
+                        e.currentTarget.style.color = '#FFFFFF';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#9CA3AF';
+                    }}
                 >
                     <LogOut size={16} />
                     Sign out

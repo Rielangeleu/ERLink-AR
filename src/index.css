@@ -18,8 +18,351 @@
 }
 
 #root {
-    /* REMOVE the fixed width here */
     @apply min-h-screen w-full flex flex-col;
 }
 
-[cite_start]
+/* ========================================
+   THEME SYSTEM - Everything changes together
+   ======================================== */
+
+/* Light Theme (Default) */
+:root {
+    /* Primary Brand Color - Change this ONE value to change everything */
+    --primary-color: #2563EB;
+    
+    /* Derived colors */
+    --primary-50: #EFF6FF;
+    --primary-100: #DBEAFE;
+    --primary-200: #BFDBFE;
+    --primary-300: #93C5FD;
+    --primary-400: #60A5FA;
+    --primary-500: #3B82F6;
+    --primary-600: #2563EB;
+    --primary-700: #1D4ED8;
+    --primary-800: #1E40AF;
+    --primary-900: #1E3A8A;
+    
+    /* Sidebar Colors */
+    --sidebar-bg: #1F2937;
+    --sidebar-text: #F9FAFB;
+    --sidebar-text-muted: #9CA3AF;
+    --sidebar-hover: #374151;
+    --sidebar-active: #2563EB;
+    
+    /* Main Content Colors */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F9FAFB;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --text-muted: #9CA3AF;
+    --border-color: #E5E7EB;
+    
+    /* Status Colors */
+    --success: #10B981;
+    --danger: #EF4444;
+    --warning: #F59E0B;
+    --info: #3B82F6;
+    
+    /* Spacing & Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.25rem;
+    --radius-2xl: 1.5rem;
+    
+    /* Transitions */
+    --transition-fast: 150ms;
+    --transition-normal: 250ms;
+}
+
+/* Dark Theme - Changes everything including logo */
+[data-theme="dark"],
+.dark-theme {
+    --primary-color: #8B5CF6;
+    --primary-50: #2D2B3F;
+    --primary-100: #3D3A5C;
+    --primary-200: #4F4A7A;
+    --primary-300: #6B5B9E;
+    --primary-400: #8B5CF6;
+    --primary-500: #A78BFA;
+    --primary-600: #C4B5FD;
+    --primary-700: #DDD6FE;
+    --primary-800: #EDE9FE;
+    --primary-900: #F5F3FF;
+    
+    --sidebar-bg: #0F172A;
+    --sidebar-text: #F1F5F9;
+    --sidebar-text-muted: #94A3B8;
+    --sidebar-hover: #1E293B;
+    --sidebar-active: #8B5CF6;
+    
+    --bg-primary: #1E293B;
+    --bg-secondary: #0F172A;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --border-color: #334155;
+}
+
+/* ========================================
+   SIDEBAR STYLES - Changes with theme
+   ======================================== */
+
+.sidebar {
+    background-color: var(--sidebar-bg) !important;
+    transition: all var(--transition-normal) ease;
+}
+
+.sidebar .text-gray-600,
+.sidebar .text-gray-500,
+.sidebar .text-gray-700 {
+    color: var(--sidebar-text-muted) !important;
+}
+
+.sidebar .text-gray-900,
+.sidebar .font-semibold,
+.sidebar .font-medium {
+    color: var(--sidebar-text) !important;
+}
+
+.sidebar a {
+    color: var(--sidebar-text-muted) !important;
+    transition: all var(--transition-fast) ease;
+}
+
+.sidebar a:hover {
+    background-color: var(--sidebar-hover) !important;
+    color: var(--sidebar-text) !important;
+}
+
+.sidebar a.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Logo in Sidebar - Changes color with theme */
+.sidebar-logo,
+.sidebar h1 {
+    color: var(--sidebar-text) !important;
+}
+
+/* ========================================
+   MAIN CONTENT - Changes with theme
+   ======================================== */
+
+.main-content,
+main {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Cards */
+.bg-white {
+    background-color: var(--bg-primary) !important;
+}
+
+/* Tables */
+table tbody td,
+.table-cell {
+    color: var(--text-primary);
+}
+
+table thead th {
+    color: var(--text-secondary);
+}
+
+/* Input Fields */
+input,
+select,
+textarea {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    ring-color: var(--primary-color);
+}
+
+/* ========================================
+   BUTTONS - All use primary color
+   ======================================== */
+
+/* Primary Buttons */
+button.bg-blue-600,
+button.bg-blue-500,
+button[class*="bg-blue-"],
+.btn-primary,
+.bg-blue-600,
+button[class*="bg-accent"] {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    transition: all var(--transition-fast) ease;
+}
+
+button.bg-blue-600:hover,
+button.bg-blue-500:hover,
+button[class*="bg-blue-"]:hover,
+.btn-primary:hover,
+.bg-blue-600:hover,
+button[class*="bg-accent"]:hover {
+    background-color: var(--primary-color) !important;
+    filter: brightness(0.9);
+}
+
+/* Outline Buttons */
+button.border-blue-600,
+.btn-outline {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+button.border-blue-600:hover,
+.btn-outline:hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* ========================================
+   TEXT & LINKS - Use primary color
+   ======================================== */
+
+.text-blue-600,
+.text-blue-500,
+.text-blue-700,
+a.text-blue-600,
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+a:not(.sidebar a) {
+    color: var(--primary-color) !important;
+}
+
+a:not(.sidebar a):hover {
+    color: var(--primary-color) !important;
+    filter: brightness(0.8);
+}
+
+/* ========================================
+   STATUS BADGES - Keep contrast
+   ======================================== */
+
+.bg-green-100 {
+    background-color: #D1FAE5 !important;
+    color: #065F46 !important;
+}
+
+.bg-red-100 {
+    background-color: #FEE2E2 !important;
+    color: #991B1B !important;
+}
+
+.bg-yellow-100 {
+    background-color: #FEF3C7 !important;
+    color: #92400E !important;
+}
+
+.bg-purple-100 {
+    background-color: #EDE9FE !important;
+    color: #5B21B6 !important;
+}
+
+/* ========================================
+   BACKGROUNDS & BORDERS
+   ======================================== */
+
+.bg-gray-50,
+.bg-gray-100 {
+    background-color: var(--bg-secondary) !important;
+}
+
+.border-gray-200,
+.border-gray-100 {
+    border-color: var(--border-color) !important;
+}
+
+/* Hover states */
+.hover\:bg-gray-50:hover,
+.hover\:bg-gray-100:hover {
+    background-color: var(--bg-secondary) !important;
+    filter: brightness(0.95);
+}
+
+/* ========================================
+   MODAL OVERLAY
+   ======================================== */
+
+.fixed.inset-0.bg-black\/50 {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ========================================
+   FOCUS RINGS
+   ======================================== */
+
+.focus\:ring-blue-500:focus,
+.focus\:ring-blue-600:focus {
+    --tw-ring-color: var(--primary-color) !important;
+}
+
+/* ========================================
+   SCROLLBAR (Optional)
+   ======================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+    animation: fadeIn var(--transition-normal) ease-out;
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+}
