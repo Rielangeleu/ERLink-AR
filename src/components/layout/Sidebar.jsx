@@ -9,6 +9,30 @@ import {
     Box, LogOut, Activity, Shield
 } from 'lucide-react';
 
+// Helper function to determine if a color is light or dark
+function getContrastColor(hexColor) {
+    // Remove the # if present
+    let color = hexColor.replace('#', '');
+
+    // Parse RGB values
+    let r, g, b;
+    if (color.length === 3) {
+        r = parseInt(color[0] + color[0], 16);
+        g = parseInt(color[1] + color[1], 16);
+        b = parseInt(color[2] + color[2], 16);
+    } else {
+        r = parseInt(color.substring(0, 2), 16);
+        g = parseInt(color.substring(2, 4), 16);
+        b = parseInt(color.substring(4, 6), 16);
+    }
+
+    // Calculate luminance (perceived brightness)
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+    // Return white for dark colors, black for light colors
+    return luminance > 0.5 ? '#1F2937' : '#FFFFFF';
+}
+
 const navItems = [
     { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', roles: ['instructor', 'it_admin'] },
     { to: '/students', icon: GraduationCap, label: 'Students', roles: ['instructor', 'it_admin'] },
@@ -27,33 +51,35 @@ export default function Sidebar() {
     const [portalName, setPortalName] = useState('ERLink AR');
     const [sidebarColor, setSidebarColor] = useState('#1F2937');
     const [primaryColor, setPrimaryColor] = useState('#2563EB');
+    const [activeTextColor, setActiveTextColor] = useState('#FFFFFF');
+
+    // Calculate text color whenever primary color changes
+    useEffect(() => {
+        setActiveTextColor(getContrastColor(primaryColor));
+    }, [primaryColor]);
 
     // Load system config for logo and colors
     useEffect(() => {
         loadSystemConfig();
-        
-        // Listen for theme changes from System Config
+
         const handleThemeChange = (event) => {
             if (event.detail) {
                 if (event.detail.portalLogoUrl) setPortalLogo(event.detail.portalLogoUrl);
                 if (event.detail.portalName) setPortalName(event.detail.portalName);
                 if (event.detail.sidebarColor) setSidebarColor(event.detail.sidebarColor);
-                if (event.detail.primaryColor) setPrimaryColor(event.detail.primaryColor);
+                if (event.detail.primaryColor) {
+                    setPrimaryColor(event.detail.primaryColor);
+                    setActiveTextColor(getContrastColor(event.detail.primaryColor));
+                }
             }
         };
-        
+
         window.addEventListener('themeChanged', handleThemeChange);
-        
-        // Also listen for storage events (in case config saves in another tab)
-        const handleStorageChange = () => {
-            loadSystemConfig();
-        };
-        
-        window.addEventListener('storage', handleStorageChange);
-        
+        window.addEventListener('storage', loadSystemConfig);
+
         return () => {
             window.removeEventListener('themeChanged', handleThemeChange);
-            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('storage', loadSystemConfig);
         };
     }, []);
 
@@ -65,12 +91,10 @@ export default function Sidebar() {
                 if (data.portalLogoUrl) setPortalLogo(data.portalLogoUrl);
                 if (data.portalName) setPortalName(data.portalName);
                 if (data.sidebarColor) setSidebarColor(data.sidebarColor);
-                if (data.primaryColor) setPrimaryColor(data.primaryColor);
-                
-                // Apply CSS variables to sidebar
-                const root = document.documentElement;
-                root.style.setProperty('--sidebar-color', data.sidebarColor || '#1F2937');
-                root.style.setProperty('--primary-color', data.primaryColor || '#2563EB');
+                if (data.primaryColor) {
+                    setPrimaryColor(data.primaryColor);
+                    setActiveTextColor(getContrastColor(data.primaryColor));
+                }
             }
         } catch (error) {
             console.error('Error loading system config:', error);
@@ -86,16 +110,16 @@ export default function Sidebar() {
         item.roles.includes(profile?.role));
 
     return (
-        <aside 
-            className="w-56 flex flex-col h-screen sticky top-0 transition-all duration-300"
+        <aside
+            className="w-56 flex flex-col h-screen sticky top-0 transition-all duration-300 sidebar"
             style={{ backgroundColor: sidebarColor }}
         >
-            {/* Logo Section - Dynamically updates */}
+            {/* Logo Section */}
             <div className="p-6 border-b" style={{ borderColor: `${sidebarColor}80` }}>
                 <div className="flex items-center gap-2 mb-1">
                     {portalLogo ? (
-                        <img 
-                            src={portalLogo} 
+                        <img
+                            src={portalLogo}
                             alt={portalName}
                             className="w-8 h-8 object-contain rounded-lg"
                         />
@@ -118,16 +142,19 @@ export default function Sidebar() {
                         key={to}
                         to={to}
                         className={({ isActive }) =>
-                            `flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-sm font-medium transition-colors ${
-                                isActive
-                                    ? 'bg-blue-600 text-white'
-                                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                            `flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-sm font-medium transition-colors ${isActive
+                                ? 'font-semibold shadow-sm'  // Add slight shadow for active state
+                                : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                             }`
                         }
-                        style={({ isActive }) => isActive ? { backgroundColor: primaryColor } : {}}
+                        style={({ isActive }) => isActive ? {
+                            backgroundColor: primaryColor,
+                            color: activeTextColor,
+                            opacity: 1
+                        } : {}}
                     >
-                        <Icon size={18} />
-                        {label}
+                        <Icon size={18} style={{ color: 'inherit' }} />
+                        <span style={{ color: 'inherit' }}>{label}</span>
                     </NavLink>
                 ))}
             </nav>
