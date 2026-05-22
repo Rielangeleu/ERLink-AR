@@ -99,11 +99,14 @@ export default function Users() {
     }
 
     async function createStudentUser() {
+        // REMOVE: const cred = await createUserWithEmailAndPassword(...)
+
+        // Generate a unique ID for the Firestore document
         const userId = generateUserId();
         const pinCode = generatePin();
-        
+
         const studentData = {
-            userId: userId,
+            userId: userId, // Document ID will be this userId
             email: newUser.email,
             displayName: newUser.displayName,
             role: 'student',
@@ -111,14 +114,12 @@ export default function Users() {
             yearLevel: newUser.yearLevel,
             institution: 'Mapua University',
             isActive: true,
-            isLocked: false,
-            failedLoginAttempts: 0,
-            pinCode: pinCode,
+            pinCode: pinCode, // PIN is the secret, not a password
+            authUid: null, // No authUid until they verify in Unity!
             createdAt: serverTimestamp(),
-            createdBy: currentProfile?.email,
-            lastLoginAR: null,
         };
 
+        // Save to Firestore ONLY
         await setDoc(doc(db, 'users', userId), studentData);
         
         await logAction('STUDENT_CREATED', 

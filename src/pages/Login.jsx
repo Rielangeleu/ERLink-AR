@@ -185,11 +185,24 @@ export default function Login() {
             
             navigate('/dashboard');
         } catch (err) {
+            console.error('Login error:', err.code, err.message);
+
+            // Map Firebase auth errors to user-friendly messages
+            let errorMessage = 'Login failed. Please try again.';
+            if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
+                errorMessage = '❌ Incorrect email or password. Please try again.';
+            } else if (err.code === 'auth/user-not-found') {
+                errorMessage = '❌ No account found with this email address.';
+            } else if (err.code === 'auth/too-many-requests') {
+                errorMessage = '❌ Too many failed attempts. Please try again later.';
+            }
+
+            setError(errorMessage);
+
             if (userRole !== 'student') {
                 await recordFailedLogin();
-            } else {
-                setError('Student accounts cannot access this portal. Please use the AR app.');
             }
+
             setLoading(false);
         }
     };

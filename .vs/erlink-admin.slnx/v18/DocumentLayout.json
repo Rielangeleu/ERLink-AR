@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Angela\\erlink-admin\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\Scenarios.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\Scenarios.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\Users.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\Users.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\ARAssets.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\ARAssets.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\Login.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\Login.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\Students.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\Students.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\Scenarios.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\Scenarios.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\AuditLogs.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\AuditLogs.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\ARAssets.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\ARAssets.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\components\\layout\\Sidebar.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -27,16 +39,8 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\layout\\Layout.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\AuditLogs.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\AuditLogs.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\SystemConfig.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\SystemConfig.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\src\\pages\\Users.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\Users.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Angela\\erlink-admin\\vite.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -50,11 +54,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "index.css",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\index.css",
               "RelativeDocumentMoniker": "src\\index.css",
@@ -67,20 +71,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Students.jsx",
-              "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Students.jsx",
-              "RelativeDocumentMoniker": "src\\pages\\Students.jsx",
-              "ToolTip": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Students.jsx",
-              "RelativeToolTip": "src\\pages\\Students.jsx",
-              "ViewState": "AgIAAMEAAAAAAAAAAAAwwN8AAAABAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Login.jsx",
+              "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Login.jsx",
+              "RelativeDocumentMoniker": "src\\pages\\Login.jsx",
+              "ToolTip": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Login.jsx",
+              "RelativeToolTip": "src\\pages\\Login.jsx",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAUwM8AAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2026-05-21T03:19:43.382Z",
+              "WhenOpened": "2026-05-22T04:25:16.463Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Sidebar.jsx",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\components\\layout\\Sidebar.jsx",
               "RelativeDocumentMoniker": "src\\components\\layout\\Sidebar.jsx",
@@ -92,7 +96,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Scenarios.jsx",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Scenarios.jsx",
               "RelativeDocumentMoniker": "src\\pages\\Scenarios.jsx",
@@ -105,7 +109,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "ARAssets.jsx",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\ARAssets.jsx",
               "RelativeDocumentMoniker": "src\\pages\\ARAssets.jsx",
@@ -113,24 +117,24 @@
               "RelativeToolTip": "src\\pages\\ARAssets.jsx",
               "ViewState": "AgIAAJEAAAAAAAAAAAAqwKAAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2026-05-18T10:22:15.975Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-18T10:22:15.975Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "AuditLogs.jsx",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\AuditLogs.jsx",
               "RelativeDocumentMoniker": "src\\pages\\AuditLogs.jsx",
               "ToolTip": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\AuditLogs.jsx",
               "RelativeToolTip": "src\\pages\\AuditLogs.jsx",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAmwI0AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAKwAAAAAAAAAAAAowNIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2026-05-13T05:49:21.41Z"
+              "WhenOpened": "2026-05-13T05:49:21.41Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "SystemConfig.jsx",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\SystemConfig.jsx",
               "RelativeDocumentMoniker": "src\\pages\\SystemConfig.jsx",
@@ -142,19 +146,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "Users.jsx",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Users.jsx",
               "RelativeDocumentMoniker": "src\\pages\\Users.jsx",
               "ToolTip": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Users.jsx",
               "RelativeToolTip": "src\\pages\\Users.jsx",
-              "ViewState": "AgIAAMYBAAAAAAAAAAAmwNUBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAYwHoAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
-              "WhenOpened": "2026-05-13T05:47:24.473Z"
+              "WhenOpened": "2026-05-13T05:47:24.473Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
+              "Title": "Students.jsx",
+              "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Students.jsx",
+              "RelativeDocumentMoniker": "src\\pages\\Students.jsx",
+              "ToolTip": "C:\\Users\\Angela\\erlink-admin\\src\\pages\\Students.jsx",
+              "RelativeToolTip": "src\\pages\\Students.jsx",
+              "ViewState": "AgIAAPEAAAAAAAAAAAAkwC8BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-05-21T03:19:43.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Layout.jsx",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\src\\components\\layout\\Layout.jsx",
               "RelativeDocumentMoniker": "src\\components\\layout\\Layout.jsx",
@@ -166,7 +184,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "vite.config.js",
               "DocumentMoniker": "C:\\Users\\Angela\\erlink-admin\\vite.config.js",
               "RelativeDocumentMoniker": "vite.config.js",

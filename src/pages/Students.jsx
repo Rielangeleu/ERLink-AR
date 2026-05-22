@@ -18,6 +18,80 @@ export default function Students() {
         loadStudents();
     }, []);
 
+    async function getStudentSessions(student) {
+        // Array of possible ID fields to try, in order of priority
+        const possibleIds = [
+            { value: student.authUid, name: 'authUid' },
+            { value: student.userId, name: 'userId' },
+            { value: student.uid, name: 'uid' },
+            { value: student.id, name: 'documentId' }
+        ];
+
+        // First try: Query by userId field using possible IDs
+        for (const id of possibleIds) {
+            if (id.value) {
+                try {
+                    console.log(`Trying ${id.name}: ${id.value} for ${student.displayName}`);
+                    const sessions = await getDocs(query(
+                        collection(db, 'sessions'),
+                        where('userId', '==', id.value)
+                    ));
+
+                    if (sessions.size > 0) {
+                        console.log(`✓ Found ${sessions.size} sessions using ${id.name}`);
+                        return sessions;
+                    }
+                } catch (err) {
+                    console.log(`Error querying with ${id.name}:`, err);
+                }
+            }
+        }
+
+        // Second try: Query by userEmail field
+        if (student.email) {
+            try {
+                console.log(`Trying email: ${student.email} for ${student.displayName}`);
+                const sessions = await getDocs(query(
+                    collection(db, 'sessions'),
+                    where('userEmail', '==', student.email)
+                ));
+
+                if (sessions.size > 0) {
+                    console.log(`✓ Found ${sessions.size} sessions using email`);
+                    return sessions;
+                }
+            } catch (err) {
+                console.log(`Error querying with email:`, err);
+            }
+        }
+
+        // Third try: Get all sessions and filter client-side (slow but thorough)
+        try {
+            console.log(`Trying fallback: get all sessions for ${student.displayName}`);
+            const allSessions = await getDocs(collection(db, 'sessions'));
+
+            const matchingSessions = allSessions.docs.filter(doc => {
+                const data = doc.data();
+                // Check if any of the student's identifiers match the session
+                const matchesUserId = possibleIds.some(id => id.value && data.userId === id.value);
+                const matchesEmail = student.email && data.userEmail === student.email;
+                const matchesDisplayName = student.displayName && data.displayName === student.displayName;
+
+                return matchesUserId || matchesEmail || matchesDisplayName;
+            });
+
+            if (matchingSessions.length > 0) {
+                console.log(`✓ Found ${matchingSessions.length} sessions using full scan fallback`);
+                return { size: matchingSessions.length, docs: matchingSessions };
+            }
+        } catch (err) {
+            console.log(`Error in fallback query:`, err);
+        }
+
+        console.log(`✗ No sessions found for ${student.displayName}`);
+        return { size: 0, docs: [] };
+    }
+
     async function loadStudents() {
         setLoading(true);
         setError(null);
@@ -38,32 +112,33 @@ export default function Students() {
                 ...doc.data()
             }));
 
-            console.log("Student list before sessions:", studentList);
+            console.log("Student list before sessions:", studentList.map(s => ({
+                name: s.displayName,
+                email: s.email,
+                authUid: s.authUid,
+                userId: s.userId,
+                id: s.id
+            })));
 
             // Load session counts for each student
             const withSessions = await Promise.all(
                 studentList.map(async (student) => {
                     try {
-                        // Make sure we have userId
-                        const userId = student.userId || student.id;
-                        console.log(`Loading sessions for student: ${student.displayName}, userId: ${userId}`);
-
-                        const sessions = await getDocs(query(
-                            collection(db, 'sessions'),
-                            where('userId', '==', userId)
-                        ));
+                        const sessions = await getStudentSessions(student);
 
                         const scores = sessions.docs
-                            .map(s => s.data().finalScore)
-                            .filter(Boolean);
+                            ? sessions.docs.map(s => s.data().finalScore).filter(Boolean)
+                            : [];
 
                         const avgScore = scores.length
                             ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(0)
                             : null;
 
+                        console.log(`Final: ${student.displayName} - ${sessions.size || sessions.length || 0} sessions, avg: ${avgScore}`);
+
                         return {
                             ...student,
-                            sessionCount: sessions.size,
+                            sessionCount: sessions.size || sessions.length || 0,
                             avgScore: avgScore ? parseInt(avgScore) : null
                         };
                     } catch (err) {
@@ -77,7 +152,12 @@ export default function Students() {
                 })
             );
 
-            console.log("Final students with sessions:", withSessions);
+            console.log("Final students with sessions:", withSessions.map(s => ({
+                name: s.displayName,
+                sessions: s.sessionCount,
+                avg: s.avgScore
+            })));
+
             setStudents(withSessions);
         } catch (e) {
             console.error("Error loading students:", e);
