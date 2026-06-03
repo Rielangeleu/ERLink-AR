@@ -351,18 +351,77 @@ a:not(.sidebar a):hover {
 }
 
 /* ========================================
-   RESPONSIVE ADJUSTMENTS
+   RESPONSIVE SIDEBAR STYLES
    ======================================== */
 
+/* Mobile styles */
 @media (max-width: 768px) {
-    .sidebar {
+    .sidebar-wrapper {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1000 !important;
         transform: translateX(-100%);
-        position: fixed;
-        z-index: 50;
-        height: 100vh;
+        transition: transform 0.3s ease-in-out !important;
     }
     
-    .sidebar.open {
-        transform: translateX(0);
+    .sidebar-wrapper.mobile-open {
+        transform: translateX(0) !important;
+    }
+
+    /* Hide sidebar wrapper when not open - ensure no space is taken */
+    .sidebar-wrapper:not(.mobile-open) {
+        display: none;
+    }
+    
+    .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+    
+    main {
+        padding: 1rem !important;
+    }
+    
+    /* Better touch targets for mobile */
+    button, 
+    a,
+    [role="button"] {
+        min-height: 44px;
+    }
+    
+    /* Table horizontal scroll for mobile */
+    .overflow-x-auto {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    
+    /* Cards full width on mobile */
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+    }
+    
+    /* Stats cards responsive */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .sidebar-wrapper {
+        position: relative !important;
+        transform: translateX(0) !important;
+    }
+    
+    .mobile-overlay {
+        display: none !important;
     }
 }

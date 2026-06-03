@@ -1,20 +1,45 @@
-﻿import { useAuth } from '../../context/AuthContext';
+﻿import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import NotificationBell from './NotificationBell';
+import { Menu } from 'lucide-react';
 
-export default function Header() {
+export default function Header({ onMenuClick }) {
     const { profile } = useAuth();
 
+    const handleMenuClick = () => {
+        console.log('Menu button clicked');
+        if (onMenuClick) onMenuClick();
+    };
+
     return (
-        <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-            <div>
-                <h2 className="text-sm text-gray-500">
-                    {new Date().toLocaleDateString('en-PH', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}
-                </h2>
+        <header className="bg-white border-b border-gray-200 px-4 md:px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={handleMenuClick}
+                    className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                    aria-label="Open menu"
+                >
+                    <Menu size={20} className="text-gray-600" />
+                </button>
+                <div>
+                    <h2 className="text-sm text-gray-500 hidden md:block">
+                        {new Date().toLocaleDateString('en-PH', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
+                    </h2>
+                    {/* Mobile date - shorter format */}
+                    <h2 className="text-xs text-gray-500 md:hidden">
+                        {new Date().toLocaleDateString('en-PH', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                        })}
+                    </h2>
+                </div>
             </div>
             <div className="flex items-center gap-4">
                 <NotificationBell />

@@ -6,15 +6,12 @@ import { doc, getDoc } from 'firebase/firestore';
 import {
     LayoutDashboard, Users, GraduationCap,
     ClipboardList, Settings, FileText,
-    Box, LogOut, Activity, Shield
+    Box, LogOut, Activity, Shield, X
 } from 'lucide-react';
 
 // Helper function to determine if a color is light or dark
 function getContrastColor(hexColor) {
-    // Remove the # if present
     let color = hexColor.replace('#', '');
-
-    // Parse RGB values
     let r, g, b;
     if (color.length === 3) {
         r = parseInt(color[0] + color[0], 16);
@@ -25,11 +22,7 @@ function getContrastColor(hexColor) {
         g = parseInt(color.substring(2, 4), 16);
         b = parseInt(color.substring(4, 6), 16);
     }
-
-    // Calculate luminance (perceived brightness)
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-    // Return white for dark colors, black for light colors
     return luminance > 0.5 ? '#1F2937' : '#FFFFFF';
 }
 
@@ -44,7 +37,7 @@ const navItems = [
     { to: '/audit-logs', icon: Shield, label: 'Audit Logs', roles: ['it_admin'] },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ onClose }) {
     const { profile, logout } = useAuth();
     const navigate = useNavigate();
     const [portalLogo, setPortalLogo] = useState(null);
@@ -53,12 +46,10 @@ export default function Sidebar() {
     const [primaryColor, setPrimaryColor] = useState('#2563EB');
     const [activeTextColor, setActiveTextColor] = useState('#FFFFFF');
 
-    // Calculate text color whenever primary color changes
     useEffect(() => {
         setActiveTextColor(getContrastColor(primaryColor));
     }, [primaryColor]);
 
-    // Load system config for logo and colors
     useEffect(() => {
         loadSystemConfig();
 
@@ -104,6 +95,11 @@ export default function Sidebar() {
     const handleLogout = async () => {
         await logout();
         navigate('/login');
+        if (onClose) onClose();
+    };
+
+    const handleNavClick = () => {
+        if (onClose) onClose();
     };
 
     const visibleItems = navItems.filter(item =>
@@ -111,12 +107,12 @@ export default function Sidebar() {
 
     return (
         <aside
-            className="w-56 flex flex-col h-screen sticky top-0 transition-all duration-300 sidebar"
+            className="w-64 md:w-56 flex flex-col h-screen transition-all duration-300 sidebar"
             style={{ backgroundColor: sidebarColor }}
         >
-            {/* Logo Section */}
-            <div className="p-6 border-b" style={{ borderColor: `${sidebarColor}80` }}>
-                <div className="flex items-center gap-2 mb-1">
+            {/* Logo Section with Close Button */}
+            <div className="p-4 border-b flex items-center justify-between" style={{ borderColor: `${sidebarColor}80` }}>
+                <div className="flex items-center gap-2">
                     {portalLogo ? (
                         <img
                             src={portalLogo}
@@ -130,9 +126,14 @@ export default function Sidebar() {
                         {portalName}
                     </span>
                 </div>
-                <p className="text-xs capitalize" style={{ color: '#9CA3AF' }}>
-                    {profile?.role?.replace('_', ' ')} Portal
-                </p>
+                {/* Mobile Close Button */}
+                <button
+                    onClick={onClose}
+                    className="md:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors"
+                    aria-label="Close menu"
+                >
+                    <X size={20} style={{ color: '#9CA3AF' }} />
+                </button>
             </div>
 
             {/* Navigation */}
@@ -141,9 +142,10 @@ export default function Sidebar() {
                     <NavLink
                         key={to}
                         to={to}
+                        onClick={handleNavClick}
                         className={({ isActive }) =>
                             `flex items-center gap-3 px-4 py-3 rounded-xl mb-1 text-sm font-medium transition-colors ${isActive
-                                ? 'font-semibold shadow-sm'  // Add slight shadow for active state
+                                ? 'font-semibold shadow-sm'
                                 : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                             }`
                         }
